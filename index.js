@@ -180,7 +180,7 @@ class SequelizeI18N {
 			});
 
 			i18nOptions.language_id = options.language_id || baseOptions.defaultLanguage;
-			i18nOptions.parent_id = instance.dataValues.id;
+			i18nOptions.parent_id = instance.dataValues.id || instance.dataValues.ID;
 		}			
 
 		return this
@@ -238,7 +238,7 @@ class SequelizeI18N {
 						
 						const i18nOptions = {
 							language_id: languageID,
-							parent_id: instance.id,
+							parent_id: instance.id || instance.ID,
 						};
 
 						const whereClause = _.assign(i18nOptions);
@@ -273,7 +273,7 @@ class SequelizeI18N {
 							.destroy({
 								where: {
 									language_id: languageID,
-									parent_id: instance.id,
+									parent_id: instance.id || instance.ID,
 								}
 							});					
 					};
@@ -302,7 +302,7 @@ class SequelizeI18N {
 			.models[i18nModel.name]
 			.destroy({
 				where: {
-					parent_id: instance.id,
+					parent_id: instance.id || instance.ID,
 				},
 			}); 
 	}
@@ -321,7 +321,7 @@ class SequelizeI18N {
 			});
 
 			i18nOptions.language_id = options.language_id || baseOptions.defaultLanguage;
-			i18nOptions.parent_id = instance.dataValues.id;
+			i18nOptions.parent_id = instance.dataValues.id || instance.dataValues.ID;
 		}
 
 		return this
