@@ -39,12 +39,10 @@ import Sequelize from 'sequelize';
 import SequelizeI18N from 'sequelize-i18n';
 
 const languages = {
-  list: ['EN', 'FR', 'ES'],
   default: 'FR',
 };
 const sequelize = new Sequelize('db_name', 'user', 'password');
 const i18n = new SequelizeI18N(sequelize, {
-  languages: languages.list,
   defaultLanguage: languages.default,
 });
 
@@ -55,7 +53,6 @@ const ProductModel = sequelize.import('product', product)
 
 ### Options
 
-* `languages`: list of allowed languages IDs.
 * `defaultLanguage`: default language ID.
 * `i18nDefaultScope`: add i18n to the default model scope.
 * `addI18NScope`: add i18n scope to model.
