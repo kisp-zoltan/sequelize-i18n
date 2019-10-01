@@ -218,7 +218,7 @@ class SequelizeI18N {
 					this.sequelize.models[model.name].hasMany( i18nRealModel, {
 						as: i18nRealModel.name,
 						foreignKey: 'parent_id',
-						unique: 'i18n_unicity_constraint',
+						unique: 'i18n_unicity_constraint_' + model.name,
 					});
 					
 					model.addHook('beforeFind','addLanguage_i18n', this.addLanguage);										
@@ -357,11 +357,11 @@ class SequelizeI18N {
 					schema = schema || {
 						language_id: {
 							type: this.languageType,
-							unique: 'i18n_unicity_constraint',
+							unique: 'i18n_unicity_constraint_' + mutableOptions.modelName,
 						},
 						parent_id: {
 							type: pk.type,
-							unique: 'i18n_unicity_constraint',
+							unique: 'i18n_unicity_constraint_' + mutableOptions.modelName,
 						},
 					};
 
@@ -369,7 +369,7 @@ class SequelizeI18N {
 					if(mutableOptions.paranoid == true)
 						schema.deleteAt = {
 							type: this.sequelize.Sequelize.DATE,
-							unique: 'i18n_unicity_constraint',
+							unique: 'i18n_unicity_constraint_' + mutableOptions.modelName,
 						};
 
 					if ('unique' in mutableModel[prop] && (mutableModel[prop].unique === true)) {
@@ -505,6 +505,7 @@ class SequelizeI18N {
 
 			for (let index = 0; index < this[modelName].length; index += 1) {
 				const value = this[modelName][index].toJSON();
+				console.log(value);
 
 				if (value.language_id && value.language_id === lang) {
 					exit = true;
